@@ -1,7 +1,8 @@
 import Vector from './vector';
 import Ship from "./ship";
+import Asteroid from "./asteroid";
 
-const WIDTH = 900;
+const WIDTH = 600;
 const HEIGHT = 600;
 
 const canvas = document.querySelector('#app');
@@ -20,14 +21,27 @@ function border() {
     ctx.strokeRect(0, 0, WIDTH, HEIGHT);
 }
 
-const world = {
-    ticks: 0,
-    isLeftMouseButtonClicked: false,
-    mousePos: {x: 0, y: 0},
-    keysPressed: new Set(),
-    ship: new Ship(new Vector(100, 100), 0),
-    missiles: []
-};
+function createWorld() {
+    const asteroids = [
+        new Asteroid(new Vector(200, 200)),
+        // new Asteroid(new Vector(WIDTH, 200))
+    ];
+
+    return {
+        ticks: 0,
+        width: WIDTH,
+        height: HEIGHT,
+        isGameOver: false,
+        isLeftMouseButtonClicked: false,
+        mousePos: {x: 0, y: 0},
+        keysPressed: new Set(),
+        ship: new Ship(new Vector(100, 100), 0),
+        missiles: [],
+        asteroids
+    };
+}
+
+let world = createWorld();
 
 document.onmousemove = e => {
     world.mousePos.x = e.x;
@@ -43,6 +57,7 @@ function update() {
     world.ticks++;
     world.ship.update(world);
     world.missiles.forEach(missile => missile.update(world));
+    world.asteroids.forEach(asteroid => asteroid.update(world));
 }
 
 function draw() {
@@ -50,9 +65,12 @@ function draw() {
     border();
     world.ship.draw(ctx);
     world.missiles.forEach(missile => missile.draw(ctx));
+    world.asteroids.forEach(asteroid => asteroid.draw(ctx));
 }
 
 setInterval(() => {
-    update();
-    draw();
+    if (!world.isGameOver) {
+        update();
+        draw();
+    }
 }, 1000 / 60);
