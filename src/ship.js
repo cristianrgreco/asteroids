@@ -36,7 +36,7 @@ export default class Ship {
     }
 
     _isMoving(world) {
-        return ['w', 'a', 's', 'd'].some(key => world.keysPressed.has(key));
+        return world.keysPressed.has(' ');
     }
 
     _canMove(world) {
@@ -46,16 +46,10 @@ export default class Ship {
     _move(world) {
         this.lastMoveTick = world.ticks;
 
-        const acc = new Vector(0, 0);
-
-        if (world.keysPressed.has('w')) acc.y -= MOVE_SPEED;
-        if (world.keysPressed.has('a')) acc.x -= MOVE_SPEED;
-        if (world.keysPressed.has('s')) acc.y += MOVE_SPEED;
-        if (world.keysPressed.has('d')) acc.x += MOVE_SPEED;
-
-        acc.rotate(this.rot + (Math.PI / 2));
-
-        this.vel.add(acc);
+        this.vel.add(new Vector(
+            MOVE_SPEED * Math.cos(this.rot),
+            MOVE_SPEED * Math.sin(this.rot)
+        ));
     }
 
     _isShooting(world) {
