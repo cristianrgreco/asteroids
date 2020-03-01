@@ -23,8 +23,11 @@ function border() {
 
 function createWorld() {
     const asteroids = [
-        new Asteroid(new Vector(200, 200)),
-        // new Asteroid(new Vector(WIDTH, 200))
+        new Asteroid(new Vector(50, 50)),
+        new Asteroid(new Vector(WIDTH - 50, 50)),
+        new Asteroid(new Vector(WIDTH - 150, 150)),
+        new Asteroid(new Vector(WIDTH - 150, HEIGHT - 150)),
+        new Asteroid(new Vector(50, HEIGHT - 50)),
     ];
 
     return {
@@ -35,7 +38,7 @@ function createWorld() {
         isLeftMouseButtonClicked: false,
         mousePos: {x: 0, y: 0},
         keysPressed: new Set(),
-        ship: new Ship(new Vector(100, 100), 0),
+        ship: new Ship(new Vector(WIDTH / 2, HEIGHT / 2), 0),
         missiles: [],
         asteroids
     };

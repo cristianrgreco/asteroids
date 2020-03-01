@@ -49,17 +49,20 @@ export default class Asteroid {
 
     _calculateReflectedStartPos(world) {
         const negativeVel = new Vector(this.vel.x, this.vel.y).invert();
-        const newStartPos = new Vector(this.startPos.x, this.startPos.y);
+        const startPos = new Vector(this.startPos.x, this.startPos.y);
+
         const isOutsideWorld = () => {
-            return newStartPos.x + this.size <= 0 ||
-                newStartPos.x - this.size > world.width ||
-                newStartPos.y + this.size <= 0 ||
-                newStartPos.y - this.size > world.height
+            return startPos.x + this.size <= 0 ||
+                startPos.x - this.size > world.width ||
+                startPos.y + this.size <= 0 ||
+                startPos.y - this.size > world.height
         };
+
         while (!isOutsideWorld()) {
-            newStartPos.add(negativeVel);
+            startPos.add(negativeVel);
         }
-        return newStartPos;
+
+        return startPos;
     }
 
     _isOutsideFrame(world) {
@@ -109,10 +112,10 @@ export default class Asteroid {
 
         const createNew = offset => new Asteroid(new Vector(this.pos.x, this.pos.y).add(offset), this.size / 4);
 
-        world.asteroids.push(createNew(new Vector(-this.size, -this.size)));
-        world.asteroids.push(createNew(new Vector(0, -this.size)));
-        world.asteroids.push(createNew(new Vector(-this.size, -0)));
-        world.asteroids.push(createNew(new Vector(+this.size, +this.size)));
+        world.asteroids.push(createNew(new Vector(-(this.size / 2), -(this.size / 2))));
+        world.asteroids.push(createNew(new Vector(0, -(this.size / 2))));
+        world.asteroids.push(createNew(new Vector(-(this.size / 2), -0)));
+        world.asteroids.push(createNew(new Vector(+(this.size / 2), +(this.size / 2))));
     }
 
     draw(ctx) {
