@@ -47,8 +47,8 @@ export default class Ship {
         this.lastMoveTick = world.ticks;
 
         this.vel.add(new Vector(
-            MOVE_SPEED * Math.cos(this.rot),
-            MOVE_SPEED * Math.sin(this.rot)
+            MOVE_SPEED * Math.cos(this.rot - (Math.PI / 2)),
+            MOVE_SPEED * Math.sin(this.rot - (Math.PI / 2))
         ));
     }
 
