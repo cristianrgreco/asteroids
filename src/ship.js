@@ -3,7 +3,7 @@ import Vector from "./vector";
 
 const SIZE = 50;
 const MOVE_SPEED = 1;
-const TICK_MOVE_TIMEOUT = 10;
+const TICK_MOVE_TIMEOUT = 5;
 const TICK_SHOT_TIMEOUT = 10;
 
 export default class Ship {
@@ -45,6 +45,7 @@ export default class Ship {
 
     _move(world) {
         this.lastMoveTick = world.ticks;
+        world.sounds.thrust();
 
         this.vel.add(new Vector(
             MOVE_SPEED * Math.cos(this.rot - (Math.PI / 2)),
