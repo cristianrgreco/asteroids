@@ -32,6 +32,8 @@ function createWorld() {
 
     const pewSound = document.querySelector('#pew');
     const boomSound = document.querySelector('#boom');
+    const crashSound = document.querySelector('#bang');
+    const bangSound = document.querySelector('#crash');
     const thrustSound = document.querySelector('#thrust');
 
     return {
@@ -42,6 +44,8 @@ function createWorld() {
         sounds: {
             pew: () => pewSound.cloneNode(true).play(),
             boom: () => boomSound.cloneNode(true).play(),
+            bang: () => bangSound.cloneNode(true).play(),
+            crash: () => crashSound.cloneNode(true).play(),
             thrust: () => thrustSound.cloneNode(true).play(),
         },
         isLeftMouseButtonClicked: false,

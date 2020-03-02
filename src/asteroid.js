@@ -109,7 +109,7 @@ export default class Asteroid {
 
     _breakAsteroid(world) {
         this._removeAsteroid(world);
-        world.sounds.boom();
+        this._randomBreakSound(world);
 
         const createNew = offset => new Asteroid(new Vector(this.pos.x, this.pos.y).add(offset), this.size / 4);
 
@@ -117,6 +117,13 @@ export default class Asteroid {
         world.asteroids.push(createNew(new Vector(0, -(this.size / 2))));
         world.asteroids.push(createNew(new Vector(-(this.size / 2), -0)));
         world.asteroids.push(createNew(new Vector(+(this.size / 2), +(this.size / 2))));
+    }
+
+    _randomBreakSound(world) {
+        const soundIndex = Math.floor(Math.random() * 3);
+        if (soundIndex === 0) world.sounds.boom();
+        else if (soundIndex === 1) world.sounds.bang();
+        else if (soundIndex === 2) world.sounds.crash();
     }
 
     draw(ctx) {
