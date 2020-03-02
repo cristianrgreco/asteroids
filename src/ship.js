@@ -62,6 +62,7 @@ export default class Ship {
 
     _shoot(world) {
         this.lastShotTick = world.ticks;
+        world.sounds.pew();
         world.missiles.push(new Missile(new Vector(this.pos.x, this.pos.y), this.rot - (Math.PI / 2)));
     }
 

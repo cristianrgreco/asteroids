@@ -109,6 +109,7 @@ export default class Asteroid {
 
     _breakAsteroid(world) {
         this._removeAsteroid(world);
+        world.sounds.boom();
 
         const createNew = offset => new Asteroid(new Vector(this.pos.x, this.pos.y).add(offset), this.size / 4);
 

@@ -30,11 +30,18 @@ function createWorld() {
         new Asteroid(new Vector(50, HEIGHT - 50)),
     ];
 
+    const pewSound = document.querySelector('#pew');
+    const boomSound = document.querySelector('#boom');
+
     return {
         ticks: 0,
         width: WIDTH,
         height: HEIGHT,
         isGameOver: false,
+        sounds: {
+            pew: () => pewSound.cloneNode(true).play(),
+            boom: () => boomSound.cloneNode(true).play(),
+        },
         isLeftMouseButtonClicked: false,
         mousePos: {x: 0, y: 0},
         keysPressed: new Set(),
