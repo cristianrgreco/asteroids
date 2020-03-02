@@ -44,8 +44,6 @@ function createWorld() {
     };
 }
 
-let world = createWorld();
-
 document.onmousemove = e => {
     world.mousePos.x = e.x;
     world.mousePos.y = e.y;
@@ -55,6 +53,12 @@ document.onmouseup = () => world.isLeftMouseButtonClicked = false;
 
 document.onkeydown = e => world.keysPressed.add(e.key);
 document.onkeyup = e => world.keysPressed.delete(e.key);
+
+let world;
+
+function init() {
+    world = createWorld();
+}
 
 function update() {
     world.ticks++;
@@ -70,6 +74,8 @@ function draw() {
     world.missiles.forEach(missile => missile.draw(ctx));
     world.asteroids.forEach(asteroid => asteroid.draw(ctx));
 }
+
+init();
 
 setInterval(() => {
     if (!world.isGameOver) {

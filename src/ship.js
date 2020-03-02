@@ -32,7 +32,7 @@ export default class Ship {
         const x = world.mousePos.x - this.pos.x;
         const y = world.mousePos.y - this.pos.y;
 
-        this.rot = Math.atan2(y, x);
+        this.rot = Math.atan2(y, x) + (Math.PI / 2);
     }
 
     _isMoving(world) {
@@ -62,7 +62,7 @@ export default class Ship {
 
     _shoot(world) {
         this.lastShotTick = world.ticks;
-        world.missiles.push(new Missile(new Vector(this.pos.x, this.pos.y), this.rot));
+        world.missiles.push(new Missile(new Vector(this.pos.x, this.pos.y), this.rot - (Math.PI / 2)));
     }
 
     draw(ctx) {
@@ -73,7 +73,7 @@ export default class Ship {
         ctx.save();
 
         ctx.translate(this.pos.x, this.pos.y);
-        ctx.rotate(this.rot + (Math.PI / 2));
+        ctx.rotate(this.rot);
 
         ctx.beginPath();
         ctx.moveTo(0, -SIZE / 2);
